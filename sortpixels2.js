@@ -1,16 +1,17 @@
 var sortPixels = (function(){
 
   // equivalent to rgb(103, 105, 128)
-  var blackValue = 16000000;
+  var blackValue = -16000000;
   
   // equivalent to rgb(164, 114, 128)
   var whiteValue = -8000000;
 
 //  var blackValue = (255 << 24) + (32<< 16) + (32 << 8) + 32;
-  var brightnessValue = 15;
+  var brightnessValue = 24;
+  var upperBright = 94;
 //  var whiteValue = (255 << 24) + (230<< 16) + (230 << 8) + 230;
 
-    var togheter = 50;
+    var togheter = 2;
   var saved = false;
 
   //MODE:
@@ -55,25 +56,26 @@ var sortPixels = (function(){
       setInterval(function(){
 
 
-          blackValue = Math.random()*(-13000000) -3004696
-          whiteValue = Math.random()*(-5000000) + Math.random()*1000000
+        //blackValue = Math.random()*(-12000000) -3004696
+        blackValue=Math.random()*(-12500000) -3000000
+          whiteValue = -8000000 //+ Math.random()*1000000
             //whiteValue = -5000000;
-
+/*
           column = Math.round(Math.random()*(width-togheter))
           for (var i = 0; i<togheter; i++) {
 
             column+=togheter;
               sortColumn();
           }
+*/
 
-/*
           row = Math.round(Math.random()*(height-togheter))
              for (var i = 0; i<togheter; i++) {
 
              row+=togheter;
              sortRow();
              }
-*/
+
           ctx.putImageData(imageDataWrapper, 0, 0);
 
 
@@ -252,7 +254,7 @@ var sortPixels = (function(){
   function getNextDarkX(_x, _y) {
     var x = _x+1;
     var y = _y;
-    while(getPixelBrightness(x, y) > brightnessValue) {
+    while(getPixelBrightness(x, y) > brightnessValue && getPixelBrightness(x, y) < upperBright) {
       x++;
       if(x >= width) return width-1;
     }
@@ -323,7 +325,7 @@ var sortPixels = (function(){
     var x = _x;
     var y = _y+1;
     if (y < height) {
-      while(getPixelBrightness(x, y) > brightnessValue) {
+      while(getPixelBrightness(x, y) > brightnessValue && getPixelBrightness(x, y) < upperBright) {
         y++;
         if(y >= height) return height-1;
       }
